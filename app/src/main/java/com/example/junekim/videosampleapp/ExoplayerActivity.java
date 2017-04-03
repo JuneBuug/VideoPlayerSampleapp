@@ -8,6 +8,7 @@ import android.media.AudioTrack;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.media.PlaybackParams;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,9 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ScrollView;
@@ -62,7 +66,7 @@ public class ExoplayerActivity extends Activity {
     final static String SAMPLE_VIDEO_URL = "https://s3-ap-northeast-1.amazonaws.com/imgs-bucket/kuan_about_nonsul2.mp4";
 //    final static String SAMPLE_VIDEO_URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
 
-
+    Float current_playbackrate=1.0f;
     @ViewById
     SimpleExoPlayerView exo_view;
 
@@ -70,7 +74,10 @@ public class ExoplayerActivity extends Activity {
     ScrollView video_info;
 
     @ViewById
-    TextView lock;
+    TextView lock,playback_rate_control;
+
+    @ViewById
+    ImageView plus,minus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,50 @@ public class ExoplayerActivity extends Activity {
         return true;
     }
 
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Click
+    void plus(){
+
+        PlaybackParams params = new PlaybackParams();
+        current_playbackrate+=0.1f;
+        params.setSpeed(current_playbackrate);
+        player.setPlaybackParams(params);
+        String str = String.format("%.1f",current_playbackrate);
+        playback_rate_control.setText(str+" 배속");
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Click
+    void minus(){
+
+        PlaybackParams params = new PlaybackParams();
+        current_playbackrate-=0.1f;
+        params.setSpeed(current_playbackrate);
+        String str = String.format("%.1f",current_playbackrate);
+        playback_rate_control.setText(str+" 배속");
+    }
+
+
+    @Click
+    void video_layout(){
+        plus.setVisibility(View.VISIBLE);
+        minus.setVisibility(View.VISIBLE);
+        playback_rate_control.setVisibility(View.VISIBLE);
+        lock.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fadeOutAndHideImage(plus);
+                fadeOutAndHideImage(minus);
+                fadeOutAndHideImage(playback_rate_control);
+                fadeOutAndHideImage(lock);
+            }
+        },2000);
+
+    }
     @Click
     void lock(){
         if(!is_locked){
@@ -94,7 +145,7 @@ public class ExoplayerActivity extends Activity {
                 case "portrait" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); break;
                 case "landscape" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); break;
                 case "reverse portrait" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT); break;
-                case "reverser landscape" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE); break;
+                case "reverse landscape" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE); break;
 
             }
 
@@ -122,6 +173,7 @@ public class ExoplayerActivity extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @AfterViews
     protected  void afterViews(){
 
@@ -176,7 +228,19 @@ public class ExoplayerActivity extends Activity {
 
         player.setPlayWhenReady(true);
 
+        PlaybackParams params = new PlaybackParams();
+        params.setSpeed(1.0f);
+        player.setPlaybackParams(params);
 
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                fadeOutAndHideImage(plus);
+//                fadeOutAndHideImage(minus);
+//                fadeOutAndHideImage(playback_rate_control);
+//                fadeOutAndHideImage(lock);
+//            }
+//        },5000);
     }
 
     @Override
@@ -189,6 +253,25 @@ public class ExoplayerActivity extends Activity {
     protected void onStop(){
         super.onStop();
         player.release();
+    }
+
+    private void fadeOutAndHideImage(final View view)
+    {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(500);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation)
+            {
+                view.setVisibility(View.GONE);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        view.startAnimation(fadeOut);
     }
 
 }
