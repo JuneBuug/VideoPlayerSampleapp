@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleExoPlayerView"><attr format="boolean" name="use_controller"/><attr format="boolean" name="use_texture_view"/></declare-styleable>
+    <string name="ffw_description">Fast forward</string>
+    <string name="next_description">Next track</string>
+    <string name="pause_description">Pause</string>
+    <string name="play_description">Play</string>
+    <string name="prev_description">Previous track</string>
+    <string name="rew_description">Rewind</string>
+    <string name="full_description">FullScreen</string>
+    <string name="stop_description">Stop</string>
+    <style name="MediaButton">
+    <item name="android:background">@null</item>
+    <item name="android:layout_width">71dip</item>
+    <item name="android:layout_height">52dip</item>
+  </style>
+    <style name="MediaButton.Ffwd">
+    <item name="android:src">@drawable/ic_media_ff</item>
+    <item name="android:contentDescription">@string/ffw_description</item>
+  </style>
+    <style name="MediaButton.Next">
+    <item name="android:src">@drawable/ic_media_next</item>
+    <item name="android:contentDescription">@string/next_description</item>
+  </style>
+    <style name="MediaButton.Previous">
+    <item name="android:src">@drawable/ic_media_previous</item>
+    <item name="android:contentDescription">@string/prev_description</item>
+  </style>
+    <style name="MediaButton.Rew">
+    <item name="android:src">@drawable/ic_media_rew</item>
+    <item name="android:contentDescription">@string/rew_description</item>
+  </style>
+
+    <style name="MediaButton.Full">
+        <item name="android:src">@drawable/ic_fullscreen</item>
+        <item name="android:contentDescription">@string/full_description</item>
+    </style>
+</resources>

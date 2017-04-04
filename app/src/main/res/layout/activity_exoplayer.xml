@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".VideoViewActivity">
+    tools:context=".VideoViewActivity"
+    android:background="#222">
 
 
     <RelativeLayout
@@ -19,6 +20,15 @@
             />
 
 
+
+        <ImageView
+            android:id="@+id/fullscreen"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_fullscreen"
+            android:layout_toLeftOf="@+id/lock"/>
+
+
         <TextView
             android:id="@+id/lock"
             android:layout_width="wrap_content"
@@ -30,6 +40,7 @@
 
 
         <LinearLayout
+            android:id="@+id/playback_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

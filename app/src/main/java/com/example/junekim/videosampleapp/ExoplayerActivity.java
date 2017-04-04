@@ -23,6 +23,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -63,8 +64,8 @@ public class ExoplayerActivity extends Activity {
     OrientationEventListener orientEventListener;
     Boolean is_locked=false;
     //
-    final static String SAMPLE_VIDEO_URL = "https://s3-ap-northeast-1.amazonaws.com/imgs-bucket/kuan_about_nonsul2.mp4";
-//    final static String SAMPLE_VIDEO_URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    final static String SAMPLE_VIDEO_URL = "";
+
 
     Float current_playbackrate=1.0f;
     @ViewById
@@ -78,6 +79,10 @@ public class ExoplayerActivity extends Activity {
 
     @ViewById
     ImageView plus,minus;
+
+
+    @ViewById
+    LinearLayout playback_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +122,20 @@ public class ExoplayerActivity extends Activity {
         playback_rate_control.setText(str+" 배속");
     }
 
+
+    @Click
+    void fullscreen(){
+        String orientation = getRotation(mContext);
+
+        switch (orientation){
+            case "portrait" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);break;
+            case "landscape" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);break;
+            case "reverse portrait" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);break;
+            case "reverse landscape" :  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED); break;
+
+        }
+
+    }
 
     @Click
     void video_layout(){
@@ -178,6 +197,14 @@ public class ExoplayerActivity extends Activity {
     protected  void afterViews(){
 
 
+
+       if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M){
+           playback_layout.setVisibility(View.VISIBLE);
+        }else{
+           playback_layout.setVisibility(View.GONE);
+       }
+
+
         orientEventListener = new OrientationEventListener(mContext, SensorManager.SENSOR_DELAY_NORMAL) {
             @Override
             public void onOrientationChanged(int orientation) {
@@ -214,10 +241,12 @@ public class ExoplayerActivity extends Activity {
         DefaultBandwidthMeter bandwidthMeter2 = new DefaultBandwidthMeter();
         // Produces DataSource instances through which media data is loaded. 미디어 데이터가로드되는 DataSource 인스턴스를 생성합니다.
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "yourApplicationName"), bandwidthMeter2);
+                Util.getUserAgent(this, "ExoVideoFactory"), bandwidthMeter2);
         // Produces Extractor instances for parsing the media data. 미디어 데이터의 구문 분석을 위해 Extractor 인스턴스를 생성합니다.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        // This is the MediaSource representing the media to be played. 이것은 재생할 미디어를 나타내는 MediaSource입니다.
+        // This is the Media
+        //
+        // Source representing the media to be played. 이것은 재생할 미디어를 나타내는 MediaSource입니다.
 
         Uri uri = Uri.parse(SAMPLE_VIDEO_URL);
         MediaSource videoSource = new ExtractorMediaSource(uri,
@@ -232,15 +261,15 @@ public class ExoplayerActivity extends Activity {
         params.setSpeed(1.0f);
         player.setPlaybackParams(params);
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                fadeOutAndHideImage(plus);
-//                fadeOutAndHideImage(minus);
-//                fadeOutAndHideImage(playback_rate_control);
-//                fadeOutAndHideImage(lock);
-//            }
-//        },5000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fadeOutAndHideImage(plus);
+                fadeOutAndHideImage(minus);
+                fadeOutAndHideImage(playback_rate_control);
+                fadeOutAndHideImage(lock);
+            }
+        },5000);
     }
 
     @Override
@@ -254,7 +283,7 @@ public class ExoplayerActivity extends Activity {
         super.onStop();
         player.release();
     }
-
+//
     private void fadeOutAndHideImage(final View view)
     {
         Animation fadeOut = new AlphaAnimation(1, 0);
