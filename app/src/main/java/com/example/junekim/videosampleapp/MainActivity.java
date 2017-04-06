@@ -47,8 +47,8 @@ public class MainActivity extends Activity {
 
 
         VideoListView b= new VideoListView();
-        b.title="VideoView";
-        b.content = "안드로이드에서 기본제공하는 앱내 비디오 재생 라이브러리.";
+        b.title="Exoplayer_1분 미리보기";
+        b.content = "1분 미리보기";
 
         VideoListView c= new VideoListView();
         c.title="기본 동영상 플레이어";
@@ -151,12 +151,27 @@ public class MainActivity extends Activity {
                 holder.whole_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ExoplayerActivity_.intent(mContext).start();
+                        ExoplayerActivity_.intent(mContext)
+                                .extra("one_min",false)
+                                .start();
+
 
                     }
                 });
             }
 
+            if(video.title.contains("1분")){
+                holder.whole_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ExoplayerActivity_.intent(mContext)
+                                .extra("one_min",true)
+                                .start();
+
+
+                    }
+                });
+            }
             return convertView;
         }
 

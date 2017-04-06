@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".VideoViewActivity"
-    android:background="#222">
+    >
 
 
     <RelativeLayout
@@ -12,22 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+
+        <com.example.junekim.videosampleapp.View.CustomSimpleExoPlayerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/exo_view"
-            android:layout_centerHorizontal="true"
-            />
-
-
-
-        <ImageView
-            android:id="@+id/fullscreen"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_fullscreen"
-            android:layout_toLeftOf="@+id/lock"/>
-
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/lock"
@@ -44,7 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_margin="8dp"
             android:layout_below="@+id/lock"
             android:gravity="center_horizontal">
@@ -52,8 +43,8 @@
 
             <ImageView
                 android:id="@+id/plus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:padding="4dp"
                 android:src="@drawable/ic_plus"
                 />
@@ -69,8 +60,8 @@
 
             <ImageView
                 android:id="@+id/minus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:padding="4dp"
                 android:src="@drawable/ic_minus"
                 />
@@ -93,6 +84,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"
           android:layout_marginLeft="8dp"
+          android:weightSum="5"
           android:orientation="horizontal">
 
           <de.hdodenhof.circleimageview.CircleImageView
@@ -107,6 +99,7 @@
               android:layout_width="wrap_content"
               android:layout_height="48dp"
               android:orientation="vertical"
+              android:layout_weight="4"
               android:weightSum="2"
               android:layout_marginLeft="10dp">
 
@@ -131,97 +124,149 @@
 
           </LinearLayout>
 
+          <TextView
+              android:id="@+id/buy_video"
+              android:layout_weight="1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="강의구매하기"
+              android:textSize="14dp"
+              android:padding="4dp"
+              android:gravity="center"
+              android:layout_gravity="center"
+              android:drawableRight="@drawable/ic_ticket"
+              android:textColor="@color/colorPrimary"
+              />
+
       </LinearLayout>
     </RelativeLayout>
 
 
-    <ScrollView
-        android:id="@+id/video_info"
+
+    <LinearLayout
+        android:id="@+id/tabs"
         android:layout_below="@+id/profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/tab1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tab1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:text="강의정보"/>
+
+            <View
+                android:id="@+id/tab1_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/tab2"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tab2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colornone"
+                android:text="선생님의 다른 강의 보기"/>
+
+            <View
+                android:id="@+id/tab2_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:visibility="invisible"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="더보기"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_margin="8dp"-->
+                <!--android:visibility="invisible"-->
+                <!--android:background="@color/colorPrimary"/>-->
+
+        <!--</LinearLayout>-->
+
+
+
+    </LinearLayout>
+
+    <!--뽐뿌 강의 정보 -->
+
+    <ScrollView
+        android:id="@+id/lecture_info"
+        android:layout_below="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="논알못 논잘알 만들기"
+                    android:textColor="#222"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="14sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:text="강의정보"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:background="@color/colorPrimary"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="선생님 정보"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:visibility="invisible"
-                        android:background="@color/colorPrimary"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="더보기"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:visibility="invisible"
-                        android:background="@color/colorPrimary"/>
-
-                </LinearLayout>
-
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/video_info_content"
+                    android:textColor="#222"
+                    android:lineSpacingExtra="10dp"
+                    android:textSize="12sp"/>
 
             </LinearLayout>
 
@@ -231,4 +276,13 @@
     </ScrollView>
 
 
+    <ListView
+        android:id="@+id/other_videos"
+        android:layout_below="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </RelativeLayout>

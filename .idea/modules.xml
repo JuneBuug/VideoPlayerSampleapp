@@ -4,11 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VideoSampleApp.iml" filepath="$PROJECT_DIR$/VideoSampleApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/exo_player/exo_player.iml" filepath="$PROJECT_DIR$/exo_player/exo_player.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/playbacktests/playbacktests.iml" filepath="$PROJECT_DIR$/playbacktests/playbacktests.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testutils/testutils.iml" filepath="$PROJECT_DIR$/testutils/testutils.iml" />
     </modules>
   </component>
 </project>

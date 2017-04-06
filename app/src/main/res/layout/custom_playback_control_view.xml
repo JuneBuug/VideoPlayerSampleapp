@@ -36,7 +36,9 @@
       android:contentDescription="@string/rew_description"
       style="@style/MediaButton.Rew"/>
 
-    <ImageButton android:id="@+id/play"
+
+
+      <ImageButton android:id="@+id/play"
       style="@style/MediaButton"/>
 
     <ImageButton android:id="@+id/ffwd"

@@ -1,21 +1,31 @@
-package com.example.junekim.videosampleapp.Data;
+package com.example.junekim.videosampleapp.View;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.PlaybackParams;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.junekim.videosampleapp.R;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.util.Util;
+
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.ViewById;
+import org.w3c.dom.Text;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -24,8 +34,7 @@ import java.util.Locale;
  * Created by JuneKim on 17. 4. 4..
  */
 
-public class CustomPlayBackControlView extends PlaybackControlView {
-
+public class CustomPlayBackControlView extends FrameLayout {
 
     /**
      * Listener to be notified about changes of the visibility of the UI control.
@@ -89,7 +98,6 @@ public class CustomPlayBackControlView extends PlaybackControlView {
         this(context, attrs, 0);
     }
 
-
     public CustomPlayBackControlView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -99,20 +107,21 @@ public class CustomPlayBackControlView extends PlaybackControlView {
         componentListener = new ComponentListener();
 
         LayoutInflater.from(context).inflate(com.example.junekim.videosampleapp.R.layout.custom_playback_control_view, this);
-        time = (TextView) findViewById(com.google.android.exoplayer2.R.id.time);
-        timeCurrent = (TextView) findViewById(com.google.android.exoplayer2.R.id.time_current);
-        progressBar = (SeekBar) findViewById(com.google.android.exoplayer2.R.id.mediacontroller_progress);
+        time = (TextView) findViewById(com.example.junekim.videosampleapp.R.id.time);
+        timeCurrent = (TextView) findViewById(com.example.junekim.videosampleapp.R.id.time_current);
+        progressBar = (SeekBar) findViewById(com.example.junekim.videosampleapp.R.id.mediacontroller_progress);
         progressBar.setOnSeekBarChangeListener(componentListener);
         progressBar.setMax(PROGRESS_BAR_MAX);
-        playButton = (ImageButton) findViewById(com.google.android.exoplayer2.R.id.play);
+        playButton = (ImageButton) findViewById(com.example.junekim.videosampleapp.R.id.play);
         playButton.setOnClickListener(componentListener);
-        previousButton = findViewById(com.google.android.exoplayer2.R.id.prev);
+        previousButton = findViewById(com.example.junekim.videosampleapp.R.id.prev);
         previousButton.setOnClickListener(componentListener);
-//        nextButton = findViewById(com.google.android.exoplayer2.R.id.next);
+
+//        nextButton = findViewById(com.example.junekim.videosampleapp.R.id.next);
 //        nextButton.setOnClickListener(componentListener);
-        rewindButton = findViewById(com.google.android.exoplayer2.R.id.rew);
+        rewindButton = findViewById(com.example.junekim.videosampleapp.R.id.rew);
         rewindButton.setOnClickListener(componentListener);
-        fastForwardButton = findViewById(com.google.android.exoplayer2.R.id.ffwd);
+        fastForwardButton = findViewById(com.example.junekim.videosampleapp.R.id.ffwd);
         fastForwardButton.setOnClickListener(componentListener);
         updateAll();
     }
@@ -132,6 +141,7 @@ public class CustomPlayBackControlView extends PlaybackControlView {
         }
         updateAll();
     }
+
 
     /**
      * Sets the {@link VisibilityListener}.
@@ -230,7 +240,7 @@ public class CustomPlayBackControlView extends PlaybackControlView {
             return;
         }
         boolean playing = player != null && player.getPlayWhenReady();
-        playButton.setImageResource(playing ? com.google.android.exoplayer2.R.drawable.ic_media_pause : com.google.android.exoplayer2.R.drawable.ic_media_play);
+        playButton.setImageResource(playing ? R.drawable.ic_media_pause : com.google.android.exoplayer2.R.drawable.ic_media_play);
         playButton.setContentDescription(
                 getResources().getString(playing ? com.google.android.exoplayer2.R.string.pause_description : com.google.android.exoplayer2.R.string.play_description));
     }
@@ -254,8 +264,8 @@ public class CustomPlayBackControlView extends PlaybackControlView {
         }
         setButtonEnabled(enablePrevious , previousButton);
 //        setButtonEnabled(enableNext, nextButton);
-        setButtonEnabled(isSeekable, fastForwardButton);
-        setButtonEnabled(isSeekable, rewindButton);
+//        setButtonEnabled(isSeekable, fastForwardButton);
+//        setButtonEnabled(isSeekable, rewindButton);
         progressBar.setEnabled(isSeekable);
     }
 
@@ -290,6 +300,8 @@ public class CustomPlayBackControlView extends PlaybackControlView {
             }
             postDelayed(updateProgressAction, delayMs);
         }
+
+
     }
 
     private void setButtonEnabled(boolean enabled, View view) {
@@ -468,4 +480,6 @@ public class CustomPlayBackControlView extends PlaybackControlView {
         }
 
     }
+
+
 }
