@@ -50,14 +50,9 @@ public class MainActivity extends Activity {
         b.title="Exoplayer_1분 미리보기";
         b.content = "1분 미리보기";
 
-        VideoListView c= new VideoListView();
-        c.title="기본 동영상 플레이어";
-        c.content = "핸드폰에 내장되어있는 동영상 플레이어로 재생하기";
-
 
         videos.add(a);
         videos.add(b);
-        videos.add(c);
 
         mAdapter.setData(videos);
         list_view.setAdapter(mAdapter);
@@ -133,19 +128,19 @@ public class MainActivity extends Activity {
             }
 
 
-            if(video.title.equals("기본 동영상 플레이어")){
-                holder.whole_view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String SAMPLE_VIDEO_URL = "https://s3-ap-northeast-1.amazonaws.com/imgs-bucket/kuan_about_nonsul2.mp4";
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        Uri uri = Uri.parse(SAMPLE_VIDEO_URL);
-                        intent.setDataAndType(uri,"video/mp4");
-                        startActivity(intent);
-
-                    }
-                });
-            }
+//            if(video.title.equals("기본 동영상 플레이어")){
+//                holder.whole_view.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        String SAMPLE_VIDEO_URL = "https://s3-ap-northeast-1.amazonaws.com/imgs-bucket/kuan_about_nonsul2.mp4";
+//                        Intent intent = new Intent(Intent.ACTION_VIEW);
+//                        Uri uri = Uri.parse(SAMPLE_VIDEO_URL);
+//                        intent.setDataAndType(uri,"video/mp4");
+//                        startActivity(intent);
+//
+//                    }
+//                });
+//            }
 
             if(video.title.equals("Exoplayer")){
                 holder.whole_view.setOnClickListener(new View.OnClickListener() {

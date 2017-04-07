@@ -10,7 +10,8 @@
     <RelativeLayout
         android:id="@+id/video_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colornone">
 
 
         <com.example.junekim.videosampleapp.View.CustomSimpleExoPlayerView
@@ -26,6 +27,8 @@
             android:text="방향 고정"
             android:layout_alignParentRight="true"
             android:textColor="#FFFFFF"
+            android:padding="4dp"
+            android:background="#55000000"
             android:layout_margin="8dp"/>
 
 
@@ -37,7 +40,9 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"
+            android:padding="4dp"
             android:layout_below="@+id/lock"
+            android:background="#55000000"
             android:gravity="center_horizontal">
 
 
